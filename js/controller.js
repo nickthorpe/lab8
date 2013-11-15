@@ -17,6 +17,11 @@ $(function(){
     	totalPrice: $('.total-price')
 	});
 
+	var cartJSON = localStorage.getItem('cart');
+	if (cartJSON && cartJSON.length > 0) {
+    	cartModel.setItems(JSON.parse(cartJSON));
+	}
+
 	var moviesModel = createMoviesModel({
     	url: 'https://courses.washington.edu/info343/ajax/movies/'
 	});
@@ -48,9 +53,26 @@ $(function(){
 	}); //addToCart event
 	
 	$(".place-order").click(function() {
-		var log = cartModel.toJSON();
-		log.console.log();
+		$.ajax({
+		    url: 'https://courses.washington.edu/info343/ajax/movies/orders/',
+		    type: 'POST',
+		    data: cartModel.toJSON(),
+		    contentType: 'application/json',
+		    success: function(responseData) {
+		    	alert(responseData.message);
+		    },
+		    error: function(jqXHR, status, errorThrown) {
+		        //error with post--alert user
+		        alert(errorThrown || status);
+		    }
+		}); //ajax() 
+		cartModel.setItems([]);               
 	});
+
+	cartModel.on('change', function(){
+    	localStorage.setItem('cart', cartModel.toJSON());
+	});
+
 
 
 }); //doc ready()

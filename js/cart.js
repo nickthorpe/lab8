@@ -9,8 +9,10 @@
 */
 
 function createCartModel(config) {
-	var model = createListModel(config);
+	//create new listModel instance, to add new methods
+    var model = createListModel(config);
 
+    //method to get total price of the cart
 	model.getTotalPrice = function() {
     	var idx;
 		var totalPrice = 0;
