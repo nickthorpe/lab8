@@ -47,6 +47,11 @@ $(function(){
 	    });
 	}); //addToCart event
 	
+	$(".place-order").click(function() {
+		var log = cartModel.toJSON();
+		log.console.log();
+	});
+
 
 }); //doc ready()
 
