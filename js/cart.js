@@ -16,16 +16,19 @@ function createCartModel(config) {
 	model.getTotalPrice = function() {
     	var idx;
 		var totalPrice = 0;
+        //loop over model item array, adding up prices of each item
 		for (idx = 0; idx < this.items.length; ++idx) {
     		totalPrice += this.items[idx].price;
 		}
 		return totalPrice.toFixed(2);
 	}; //getTotalPrice()
     
+    //method to return a JSON representation of the cart items
     model.toJSON = function() {
     	return JSON.stringify(this.items);
     }; //toJSON                
 
+    //return the variable from the function
     return model;
 
 } //createCartModel()
